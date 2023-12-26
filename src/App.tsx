@@ -1,5 +1,7 @@
+import { StepWrapper } from './components';
+
 function App() {
-  return <h1>App</h1>;
+  return <StepWrapper />;
 }
 
 export default App;

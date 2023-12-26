@@ -8,8 +8,8 @@ export const Step = ({ stepNo, currStep, title }: IStepProps) => {
   return (
     <div className="group flex w-fit cursor-pointer">
       <div
-        className={`flex h-[33px] w-[33px] items-center justify-center rounded-full border border-white text-sm font-bold text-white transition-all duration-150 group-hover:border-none group-hover:bg-skyBlue group-hover:text-denim ${
-          stepNo === currStep && 'border-none bg-skyBlue text-denim'
+        className={`flex h-[33px] w-[33px] items-center justify-center rounded-full border border-white text-sm font-bold transition-all duration-150 group-hover:border-none group-hover:bg-skyBlue group-hover:text-denim ${
+          stepNo === currStep ? 'border-none bg-skyBlue text-denim': 'text-white'
         }`}
       >
         {stepNo}

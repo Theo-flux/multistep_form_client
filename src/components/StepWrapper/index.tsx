@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Step } from '@/atoms';
 import BannerImg from '@/assets/bgBannerMobile.png';
-import { InfoForm } from '../Forms';
+import { InfoForm, PlanForm, AddonsForm, Summary } from '../Forms';
 
 const stepData: Array<TStep> = [
   {
@@ -29,6 +29,21 @@ const StepWrapper = () => {
     setCurrStep(arg);
   };
 
+  const displayForm = () => {
+    switch (currStep) {
+      case '1':
+        return <InfoForm handleNext={handleCurrStep} />;
+      case '2':
+        return <PlanForm handleNext={handleCurrStep} />;
+      case '3':
+        return <AddonsForm handleNext={handleCurrStep} />;
+      case '4':
+        return <Summary />;
+      default:
+        return;
+    }
+  };
+
   return (
     <section className="mx-auto flex w-full lg:h-screen lg:max-w-[940px] lg:items-center lg:justify-center">
       <div className="flex w-full flex-col items-center justify-between rounded-lg lg:flex-row lg:bg-white lg:p-4 lg:drop-shadow-md">
@@ -48,9 +63,7 @@ const StepWrapper = () => {
             alt="banner"
           />
         </aside>
-        <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
-          <InfoForm handleNext={handleCurrStep} />
-        </aside>
+        {displayForm()}
       </div>
     </section>
   );

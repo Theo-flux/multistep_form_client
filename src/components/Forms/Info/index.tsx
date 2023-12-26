@@ -7,7 +7,7 @@ interface IInfoformProps {
 
 const InfoForm = ({ handleNext }: IInfoformProps) => {
   return (
-    <div  className='w-full border h-screen lg:h-auto flex flex-col justify-between'>
+    <div className="flex h-screen w-full flex-col justify-between border lg:h-auto">
       <form className="rounded-lg bg-white p-6 lg:p-0">
         <Head
           title="Personal info"

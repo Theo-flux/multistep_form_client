@@ -1,16 +1,49 @@
 import { Fragment } from 'react';
+import { useFormik } from 'formik';
 import { Button, PrimaryInput } from '@/atoms';
 import Head from '@/components/Head';
+import { infoSchema, TInfoSchemaType } from './validation';
 
 interface IInfoformProps {
   handleNext: (arg: string) => void;
 }
 
 const InfoForm = ({ handleNext }: IInfoformProps) => {
+  const initialValues: TInfoSchemaType = {
+    name: '',
+    email: '',
+    phone: ''
+  };
+
+  const onSubmit = (data: TInfoSchemaType) => {
+    console.log(data);
+
+    handleNext('2');
+  };
+
+  const { errors, values, handleChange, handleSubmit, touched } = useFormik({
+    initialValues,
+    validationSchema: infoSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    enableReinitialize: true,
+    onSubmit
+  });
+
+  const getError = (key: keyof TInfoSchemaType) => {
+    if (touched[key] && errors[key]) {
+      return errors[key];
+    }
+    return '';
+  };
+
   return (
     <Fragment>
       <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
-        <form className="flex w-full flex-col rounded-lg bg-white p-6 py-8 lg:p-0">
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col rounded-lg bg-white p-6 py-8 lg:p-0"
+        >
           <Head
             title="Personal info"
             desc="Please provide your name, email address, and phone number."
@@ -19,11 +52,13 @@ const InfoForm = ({ handleNext }: IInfoformProps) => {
           <div className="w-full">
             <PrimaryInput
               css="mb-4"
-              id="fname"
-              name="fname"
+              id="name"
+              name="name"
               label="Name"
+              value={values.name}
               placeholder="Vanessa mint"
-              onChange={() => {}}
+              onChange={handleChange}
+              error={getError('name')}
             />
 
             <PrimaryInput
@@ -32,29 +67,27 @@ const InfoForm = ({ handleNext }: IInfoformProps) => {
               name="email"
               type="email"
               label="Email Address"
+              value={values.email}
               placeholder="venessamint@gmail.com"
-              onChange={() => {}}
+              onChange={handleChange}
+              error={getError('email')}
             />
 
             <PrimaryInput
               css="mb-4"
-              id="phoneNumber"
-              name="phoneNumber"
+              id="phone"
+              name="phone"
               type="phone"
               label="Phone Number"
+              value={values.phone}
               placeholder="e.g. +1 234 567 890"
-              onChange={() => {}}
+              onChange={handleChange}
+              error={getError('phone')}
             />
           </div>
 
           <div className="mt-24 hidden w-full lg:flex lg:justify-end">
-            <Button
-              css="w-[100px]"
-              type="button"
-              variant="filled"
-              text="Next Step"
-              onClick={() => handleNext('2')}
-            />
+            <Button css="w-[100px]" type="submit" variant="filled" text="Next Step" />
           </div>
         </form>
       </aside>

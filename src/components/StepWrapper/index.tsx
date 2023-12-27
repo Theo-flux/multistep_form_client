@@ -23,7 +23,7 @@ const stepData: Array<TStep> = [
 ];
 
 const StepWrapper = () => {
-  const [currStep, setCurrStep] = useState('1');
+  const [currStep, setCurrStep] = useState('2');
 
   const handleCurrStep = (arg: string) => {
     setCurrStep(arg);

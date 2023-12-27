@@ -1,12 +1,18 @@
 import { Fragment, useState } from 'react';
+import { useFormik } from 'formik';
 import { RadioSlabInput, Button, ArcadeSvg, AdvancedSvg, ProSvg, ToggleSwitch } from '@/atoms';
 import Head from '@/components/Head';
+import { planSchema, TPlanSchemaType } from './validation';
 
 interface IPlanFormProps {
   handleNext: (arg: string) => void;
 }
 
 const PlanForm = ({ handleNext }: IPlanFormProps) => {
+  const initialValues: TPlanSchemaType = {
+    billing: '',
+    plan: ''
+  };
   const [isBilledYearly, setBilling] = useState<boolean>(false);
 
   const handleBillingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,68 +21,108 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
     setBilling(isChecked);
   };
 
+  const onSubmit = (data: TPlanSchemaType) => {
+    const newData: TPlanSchemaType = {
+      billing: '',
+      plan: data.plan
+    };
+    if (isBilledYearly) {
+      newData.billing = 'yearly';
+    } else {
+      newData.billing = 'monthly';
+    }
+    handleNext('3');
+    console.log(newData);
+  };
+
+  const { errors, handleChange, handleSubmit, touched } = useFormik({
+    initialValues,
+    validationSchema: planSchema,
+    validateOnBlur: true,
+    validateOnChange: true,
+    enableReinitialize: true,
+    onSubmit
+  });
+
+  const getError = (key: keyof TPlanSchemaType) => {
+    if (touched[key] && errors[key]) {
+      return errors[key];
+    }
+    return '';
+  };
+
   return (
     <Fragment>
       <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
-        <form className="flex w-full flex-col rounded-lg bg-white p-6 py-8 lg:p-0">
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col rounded-lg bg-white p-6 py-8 lg:p-0"
+        >
           <Head title="Select your plan" desc="You have the option of monthly or yearly billing." />
 
+          {<small className="mb-2 text-red">{getError('plan')}</small>}
           <div className="flex w-full flex-col items-center justify-between space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 ">
             {isBilledYearly ? (
               <Fragment>
                 <RadioSlabInput
                   id={'arcade_input'}
-                  name={'plan_type'}
+                  name={'plan'}
+                  value={'arcade'}
                   icon={<ArcadeSvg />}
                   title={'Arcade'}
                   desc={'$90/yr'}
                   info={'2 months free'}
-                  onChange={() => {}}
+                  onChange={handleChange}
                 />
                 <RadioSlabInput
                   id={'advanced_input'}
-                  name={'plan_type'}
+                  name={'plan'}
+                  value={'advanced'}
                   icon={<AdvancedSvg />}
                   title={'Advanced'}
                   desc={'$120/yr'}
                   info={'2 months free'}
-                  onChange={() => {}}
+                  onChange={handleChange}
                 />
                 <RadioSlabInput
                   id={'pro_input'}
-                  name={'plan_type'}
+                  name={'plan'}
+                  value={'pro'}
                   icon={<ProSvg />}
                   title={'Pro'}
                   desc={'$150/yr'}
                   info={'2 months free'}
-                  onChange={() => {}}
+                  onChange={handleChange}
                 />
               </Fragment>
             ) : (
               <Fragment>
                 <RadioSlabInput
                   id={'arcade_input'}
-                  name={'plan_type'}
+                  name={'plan'}
+                  value={'arcade'}
                   icon={<ArcadeSvg />}
                   title={'Arcade'}
                   desc={'$9/mo'}
-                  onChange={() => {}}
+                  onChange={handleChange}
                 />
                 <RadioSlabInput
                   id={'advanced_input'}
-                  name={'plan_type'}
+                  name={'plan'}
+                  value={'advanced'}
                   icon={<AdvancedSvg />}
                   title={'Advanced'}
                   desc={'$12/mo'}
-                  onChange={() => {}}
+                  onChange={handleChange}
                 />
                 <RadioSlabInput
                   id={'pro_input'}
-                  name={'plan_type'}
+                  name={'plan'}
+                  value={'pro'}
                   icon={<ProSvg />}
                   title={'Pro'}
                   desc={'$15/mo'}
-                  onChange={() => {}}
+                  onChange={handleChange}
                 />
               </Fragment>
             )}
@@ -103,10 +149,10 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
             />
             <Button
               css="w-[100px]"
-              type="button"
+              type="submit"
               variant="filled"
               text="Next Step"
-              onClick={() => handleNext('3')}
+              onClick={() => {}}
             />
           </div>
         </form>
@@ -121,10 +167,10 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
         />
         <Button
           css="w-[100px]"
-          type="button"
+          type="submit"
           variant="filled"
           text="Next Step"
-          onClick={() => handleNext('3')}
+          onClick={handleSubmit}
         />
       </div>
     </Fragment>

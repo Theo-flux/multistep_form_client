@@ -3,6 +3,7 @@ import React from 'react';
 interface IRadioSlabInputProps {
   id: string;
   name: string;
+  value: string;
   title: string;
   desc: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +15,7 @@ interface IRadioSlabInputProps {
 const RadioSlabInput = ({
   id,
   name,
+  value,
   title,
   desc,
   onChange,
@@ -27,6 +29,7 @@ const RadioSlabInput = ({
         type="radio"
         id={id}
         name={name}
+        value={value}
         className="radio-btn-input peer hidden"
         onChange={onChange}
       />

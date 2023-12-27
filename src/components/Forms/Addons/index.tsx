@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Button, PrimaryInput } from '@/atoms';
+import { Button, CheckSlabInput } from '@/atoms';
 import Head from '@/components/Head';
 
 interface IAddonsFormProps {
@@ -13,40 +13,45 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
         <form className="flex w-full flex-col rounded-lg bg-white p-6 py-8 lg:p-0">
           <Head title="Pick add-ons" desc="Add-ons help enhance your gaming experience." />
 
-          <div className="w-full">
-            <PrimaryInput
-              css="mb-4"
-              id="fname"
-              name="fname"
-              label="Name"
-              placeholder="Vanessa mint"
+          <div className="flex w-full flex-col space-y-4">
+            <CheckSlabInput
+              id={'online_addon'}
+              name={'addon_type'}
+              title={'Online service'}
+              desc={'Access to multiplayer games'}
+              info={'+$10/yr'}
               onChange={() => {}}
             />
 
-            <PrimaryInput
-              css="mb-4"
-              id="email"
-              name="email"
-              type="email"
-              label="Email Address"
-              placeholder="venessamint@gmail.com"
+            <CheckSlabInput
+              id={'storage_addon'}
+              name={'addon_type'}
+              title={'Larger storage'}
+              desc={'Extra 1TB of cloud save'}
+              info={'+$20/yr'}
               onChange={() => {}}
             />
 
-            <PrimaryInput
-              css="mb-4"
-              id="phoneNumber"
-              name="phoneNumber"
-              type="phone"
-              label="Phone Number"
-              placeholder="e.g. +1 234 567 890"
+            <CheckSlabInput
+              id={'profile_addon'}
+              name={'addon_type'}
+              title={'Customizable profile'}
+              desc={'Custom theme on your profile'}
+              info={'+$20/yr'}
               onChange={() => {}}
             />
           </div>
 
-          <div className="mt-24 hidden w-full justify-end lg:flex">
+          <div className="mt-24 hidden w-full lg:flex lg:justify-between">
             <Button
-              css="w-[110px]"
+              css="w-[100px]"
+              type="button"
+              variant="transparent"
+              text="Go Back"
+              onClick={() => handleNext('2')}
+            />
+            <Button
+              css="w-[100px]"
               type="button"
               variant="filled"
               text="Next Step"
@@ -55,16 +60,21 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
           </div>
         </form>
       </aside>
-      <div className="fixed bottom-0 left-0 w-full bg-white p-4 lg:hidden">
-        <div className="flex w-full justify-end">
-          <Button
-            css="w-[110px]"
-            type="button"
-            variant="filled"
-            text="Next Step"
-            onClick={() => handleNext('4')}
-          />
-        </div>
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between bg-white p-4 lg:hidden">
+        <Button
+          css="w-[100px]"
+          type="button"
+          variant="transparent"
+          text="Go Back"
+          onClick={() => handleNext('2')}
+        />
+        <Button
+          css="w-[100px]"
+          type="button"
+          variant="filled"
+          text="Next Step"
+          onClick={() => handleNext('4')}
+        />
       </div>
     </Fragment>
   );

@@ -24,8 +24,8 @@ const Button = ({
   return (
     <button
       className={`flex h-[45px] w-full items-center justify-center rounded-lg border text-sm font-medium ${
-        variant === 'filled' && 'border-none bg-denim text-white hover:opacity-80'
-      } ${variant === 'transparent' && 'bg-tansparent text-black hover:bg-bgGray border-none'} ${
+        variant === 'filled' && 'border-none bg-denim text-white hover:bg-purple'
+      } ${variant === 'transparent' && 'bg-tansparent text-grey hover:text-denim border-none'} ${
         variant === 'outlined' && 'border-borderLine text-black hover:border-primary border'
       } transition-all duration-150 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 ${css}`}
       type={type}

@@ -47,9 +47,9 @@ const InfoForm = ({ handleNext }: IInfoformProps) => {
             />
           </div>
 
-          <div className="mt-24 hidden w-full justify-end lg:flex">
+          <div className="mt-24 hidden w-full lg:flex lg:justify-end">
             <Button
-              css="w-[110px]"
+              css="w-[100px]"
               type="button"
               variant="filled"
               text="Next Step"
@@ -58,16 +58,14 @@ const InfoForm = ({ handleNext }: IInfoformProps) => {
           </div>
         </form>
       </aside>
-      <div className="fixed bottom-0 left-0 w-full bg-white p-4 lg:hidden">
-        <div className="w-full justify-end flex">
-          <Button
-            css="w-[110px]"
-            type="button"
-            variant="filled"
-            text="Next Step"
-            onClick={() => handleNext('2')}
-          />
-        </div>
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-end bg-white p-4 lg:hidden">
+        <Button
+          css="w-[100px]"
+          type="button"
+          variant="filled"
+          text="Next Step"
+          onClick={() => handleNext('2')}
+        />
       </div>
     </Fragment>
   );

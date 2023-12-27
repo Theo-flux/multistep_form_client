@@ -23,7 +23,7 @@ const stepData: Array<TStep> = [
 ];
 
 const StepWrapper = () => {
-  const [currStep, setCurrStep] = useState('2');
+  const [currStep, setCurrStep] = useState('1');
 
   const handleCurrStep = (arg: string) => {
     setCurrStep(arg);
@@ -38,7 +38,7 @@ const StepWrapper = () => {
       case '3':
         return <AddonsForm handleNext={handleCurrStep} />;
       case '4':
-        return <Summary />;
+        return <Summary handleNext={handleCurrStep} />;
       default:
         return;
     }

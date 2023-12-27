@@ -93,9 +93,16 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
             />
           </div>
 
-          <div className="mt-24 hidden w-full justify-end lg:flex">
+          <div className="mt-24 hidden w-full lg:flex lg:justify-between">
             <Button
-              css="w-[110px]"
+              css="w-[100px]"
+              type="button"
+              variant="transparent"
+              text="Go Back"
+              onClick={() => handleNext('1')}
+            />
+            <Button
+              css="w-[100px]"
               type="button"
               variant="filled"
               text="Next Step"
@@ -104,16 +111,21 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
           </div>
         </form>
       </aside>
-      <div className="fixed bottom-0 left-0 w-full bg-white p-4 lg:hidden">
-        <div className="flex w-full justify-end">
-          <Button
-            css="w-[110px]"
-            type="button"
-            variant="filled"
-            text="Next Step"
-            onClick={() => handleNext('3')}
-          />
-        </div>
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between bg-white p-4 lg:hidden">
+        <Button
+          css="w-[100px]"
+          type="button"
+          variant="transparent"
+          text="Go Back"
+          onClick={() => handleNext('1')}
+        />
+        <Button
+          css="w-[100px]"
+          type="button"
+          variant="filled"
+          text="Next Step"
+          onClick={() => handleNext('3')}
+        />
       </div>
     </Fragment>
   );

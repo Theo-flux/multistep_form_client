@@ -2,7 +2,11 @@ import { Fragment } from 'react';
 import { Button, PrimaryInput } from '@/atoms';
 import Head from '@/components/Head';
 
-const Summary = () => {
+interface ISummaryProps {
+  handleNext: (arg: string) => void;
+}
+
+const Summary = ({ handleNext }: ISummaryProps) => {
   return (
     <Fragment>
       <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
@@ -40,9 +44,16 @@ const Summary = () => {
             />
           </div>
 
-          <div className="mt-24 hidden w-full justify-end lg:flex">
+          <div className="mt-24 hidden w-full lg:flex lg:justify-between">
             <Button
-              css="w-[110px]"
+              css="w-[100px]"
+              type="button"
+              variant="transparent"
+              text="Go Back"
+              onClick={() => handleNext('3')}
+            />
+            <Button
+              css="w-[100px]"
               type="button"
               variant="filled"
               text="Confirm"
@@ -51,16 +62,16 @@ const Summary = () => {
           </div>
         </form>
       </aside>
-      <div className="fixed bottom-0 left-0 w-full bg-white p-4 lg:hidden">
-        <div className="flex w-full justify-end">
-          <Button
-            css="w-[110px]"
-            type="button"
-            variant="filled"
-            text="Confirm"
-            onClick={() => {}}
-          />
-        </div>
+
+      <div className="fixed bottom-0 left-0 flex w-full items-center justify-between bg-white p-4 lg:hidden">
+        <Button
+          css="w-[100px]"
+          type="button"
+          variant="transparent"
+          text="Go Back"
+          onClick={() => handleNext('3')}
+        />
+        <Button css="w-[100px]" type="button" variant="filled" text="Confirm" onClick={() => {}} />
       </div>
     </Fragment>
   );

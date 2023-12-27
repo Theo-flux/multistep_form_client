@@ -1,42 +1,52 @@
 import { Fragment, useState } from 'react';
+import { useFormStore } from '@/store/useFormStore';
 import { useFormik } from 'formik';
 import { RadioSlabInput, Button, ArcadeSvg, AdvancedSvg, ProSvg, ToggleSwitch } from '@/atoms';
 import Head from '@/components/Head';
 import { planSchema, TPlanSchemaType } from './validation';
+import planPackage from '@/assets/data/planPackage';
 
 interface IPlanFormProps {
   handleNext: (arg: string) => void;
 }
 
 const PlanForm = ({ handleNext }: IPlanFormProps) => {
-  const initialValues: TPlanSchemaType = {
-    billing: '',
-    plan: ''
-  };
+  const { planData, setPlanData } = useFormStore();
+
   const [isBilledYearly, setBilling] = useState<boolean>(false);
 
   const handleBillingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
-
     setBilling(isChecked);
   };
 
   const onSubmit = (data: TPlanSchemaType) => {
     const newData: TPlanSchemaType = {
       billing: '',
-      plan: data.plan
+      plan: data.plan,
+      amount: 0
     };
     if (isBilledYearly) {
       newData.billing = 'yearly';
     } else {
       newData.billing = 'monthly';
     }
+
+    if (newData.billing === 'monthly') {
+      if (newData.plan === 'arcade') newData.amount = planPackage.monthly.arcade;
+      if (newData.plan === 'advanced') newData.amount = planPackage.monthly.advanced;
+      if (newData.plan === 'pro') newData.amount = planPackage.monthly.pro;
+    } else {
+      if (newData.plan === 'arcade') newData.amount = planPackage.yearly.arcade;
+      if (newData.plan === 'advanced') newData.amount = planPackage.yearly.advanced;
+      if (newData.plan === 'pro') newData.amount = planPackage.yearly.pro;
+    }
+    setPlanData(newData);
     handleNext('3');
-    console.log(newData);
   };
 
   const { errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues,
+    initialValues: planData,
     validationSchema: planSchema,
     validateOnBlur: true,
     validateOnChange: true,

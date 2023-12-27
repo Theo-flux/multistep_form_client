@@ -7,19 +7,36 @@ interface ICheckSlabInputProps {
   name: string;
   title: string;
   desc: string;
+  value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   info?: string;
   css?: string;
 }
 
-const CheckSlabInput = ({ id, name, title, desc, onChange, info, css }: ICheckSlabInputProps) => {
+const CheckSlabInput = ({
+  id,
+  name,
+  title,
+  desc,
+  onChange,
+  value,
+  info,
+  css
+}: ICheckSlabInputProps) => {
   return (
     <label htmlFor={id} className={`relative block w-full ${css}`}>
-      <input type="checkbox" id={id} name={name} className="peer hidden" onChange={onChange} />
-      <div className="absolute top-[30px] left-[10px] hidden peer-checked:block">
+      <input
+        type="checkbox"
+        id={id}
+        name={name}
+        value={value}
+        className="peer hidden"
+        onChange={onChange}
+      />
+      <div className="absolute left-[10px] top-[25px] hidden peer-checked:block">
         <CheckedSvg />
       </div>
-      <div className="absolute top-[30px] left-[10px] block peer-checked:hidden">
+      <div className="absolute left-[10px] top-[25px] block peer-checked:hidden">
         <UnCheckedSvg />
       </div>
       <div
@@ -31,7 +48,7 @@ const CheckSlabInput = ({ id, name, title, desc, onChange, info, css }: ICheckSl
             peer-checked:ring-1 peer-checked:ring-purple lg:flex-col lg:justify-between lg:space-x-0
         `}
       >
-        <div className="ml-8 flex justify-between items-center w-[93%]">
+        <div className="ml-8 flex w-[93%] items-center justify-between">
           <div className="">
             <p className="mb-1 text-sm text-denim">{title}</p>
             <p className="mb-1 text-xs font-light text-grey">{desc}</p>

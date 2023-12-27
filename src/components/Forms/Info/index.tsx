@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { useFormik } from 'formik';
+import { useFormStore } from '@/store/useFormStore';
 import { Button, PrimaryInput } from '@/atoms';
 import Head from '@/components/Head';
 import { infoSchema, TInfoSchemaType } from './validation';
@@ -9,20 +10,15 @@ interface IInfoformProps {
 }
 
 const InfoForm = ({ handleNext }: IInfoformProps) => {
-  const initialValues: TInfoSchemaType = {
-    name: '',
-    email: '',
-    phone: ''
-  };
+  const { infoData, setInfoData } = useFormStore();
 
   const onSubmit = (data: TInfoSchemaType) => {
-    console.log(data);
-
+    setInfoData(data);
     handleNext('2');
   };
 
   const { errors, values, handleChange, handleSubmit, touched } = useFormik({
-    initialValues,
+    initialValues: infoData,
     validationSchema: infoSchema,
     validateOnBlur: true,
     validateOnChange: true,
@@ -97,7 +93,7 @@ const InfoForm = ({ handleNext }: IInfoformProps) => {
           type="button"
           variant="filled"
           text="Next Step"
-          onClick={() => handleNext('2')}
+          onClick={handleSubmit}
         />
       </div>
     </Fragment>

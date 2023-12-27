@@ -17,3 +17,5 @@ type TStep = {
   stepNo: string;
   title: string;
 };
+
+type ValueOf<T> = T[keyof T];

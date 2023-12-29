@@ -20,8 +20,6 @@ type TStep = {
 
 type ValueOf<T> = T[keyof T];
 
-type TBilling = 'monthly' | 'yearly';
-
 type TAddons = {
   addon: string;
   amount: number;
@@ -31,7 +29,7 @@ type TFormModel = {
   name: string;
   email: string;
   phone: string;
-  billing: TBilling;
+  billing: string;
   subscription: {
     plan: string;
     amount: number;

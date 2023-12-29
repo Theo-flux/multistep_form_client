@@ -67,8 +67,6 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
     return '';
   };
 
-  console.log(values.plan);
-
   return (
     <Fragment>
       <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
@@ -176,7 +174,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
               type="submit"
               variant="filled"
               text="Next Step"
-              onClick={() => {}}
+              onClick={handleSubmit}
             />
           </div>
         </form>

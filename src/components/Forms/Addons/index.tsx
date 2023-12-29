@@ -15,8 +15,6 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
   const { planData, setAddonsData, addonsData } = useFormStore();
   const initialValues: TAddonsSchemaType = addonsData;
 
-  console.log(initialValues);
-
   const onSubmit = (data: TAddonsSchemaType) => {
     setAddonsData(data);
     cacheData(ADDONSDATA, data);
@@ -81,7 +79,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'online_addon'}
                   name={'addons'}
                   value={'online_service'}
-                  checked={addonsData.addons?.includes('online_service') ? true : false}
+                  checked={values.addons?.includes('online_service') ? true : false}
                   title={'Online service'}
                   desc={'Access to multiplayer games'}
                   info={'+$10/yr'}

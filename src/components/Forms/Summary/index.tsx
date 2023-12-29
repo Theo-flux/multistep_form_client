@@ -14,7 +14,7 @@ interface ISummaryProps {
 
 const Summary = ({ handleNext }: ISummaryProps) => {
   const { planData, infoData, addonsData } = useFormStore();
-  const [isConfirmed, setConfirmed] = useState(true);
+  const [isConfirmed, setConfirmed] = useState(false);
 
   console.log(infoData, planData, addonsData);
 
@@ -61,8 +61,8 @@ const Summary = ({ handleNext }: ISummaryProps) => {
           <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
             <div className="flex w-full flex-col items-center justify-center rounded-lg bg-white p-6 py-8 lg:p-0">
               <img className="w-[80px]" src={CheckIcon} alt="icon" />
-              <h1 className="text-3xl font-bold text-denim mt-6 mb-4">Thank you!</h1>
-              <p className="text-grey text-center font-light">
+              <h1 className="mb-4 mt-6 text-3xl font-bold text-denim">Thank you!</h1>
+              <p className="text-center font-light text-grey">
                 Thanks for confirming your subscription! We hope you have fun using our platform. If
                 you ever need support, please feel free to email us at support@loremgaming.com.
               </p>

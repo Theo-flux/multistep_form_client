@@ -23,7 +23,7 @@ const Button = ({
 }: IButtonProps) => {
   return (
     <button
-      className={`flex h-[45px] w-full items-center justify-center rounded-lg border text-sm font-medium ${
+      className={`flex h-[45px] w-[100px] items-center justify-center rounded-lg border text-sm font-medium ${
         variant === 'filled' && 'border-none bg-denim text-white hover:bg-purple'
       } ${variant === 'transparent' && 'bg-tansparent text-grey hover:text-denim border-none'} ${
         variant === 'outlined' && 'border-borderLine text-black hover:border-primary border'

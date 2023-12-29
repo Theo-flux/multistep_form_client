@@ -5,6 +5,8 @@ import { RadioSlabInput, Button, ArcadeSvg, AdvancedSvg, ProSvg, ToggleSwitch } 
 import Head from '@/components/Head';
 import { planSchema, TPlanSchemaType } from './validation';
 import planPackage from '@/assets/data/planPackage';
+import { cacheData } from '@/helpers/cache';
+import { PLANDATA } from '@/constants';
 
 interface IPlanFormProps {
   handleNext: (arg: string) => void;
@@ -13,12 +15,9 @@ interface IPlanFormProps {
 const PlanForm = ({ handleNext }: IPlanFormProps) => {
   const { planData, setPlanData } = useFormStore();
 
-  const [isBilledYearly, setBilling] = useState<boolean>(false);
-
-  const handleBillingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setBilling(isChecked);
-  };
+  const [isBilledYearly, setBilling] = useState<boolean>(
+    planData.billing === ('monthly' || '') ? false : true
+  );
 
   const onSubmit = (data: TPlanSchemaType) => {
     const newData: TPlanSchemaType = {
@@ -42,10 +41,11 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
       if (newData.plan === 'pro') newData.amount = planPackage.yearly.pro;
     }
     setPlanData(newData);
+    cacheData(PLANDATA, newData);
     handleNext('3');
   };
 
-  const { errors, handleChange, handleSubmit, touched } = useFormik({
+  const { errors, handleChange, handleSubmit, touched, values, setValues } = useFormik({
     initialValues: planData,
     validationSchema: planSchema,
     validateOnBlur: true,
@@ -54,12 +54,20 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
     onSubmit
   });
 
+  const handleBillingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+    setBilling(isChecked);
+    setValues((values) => ({ ...values, billing: isBilledYearly ? 'yearly' : 'monthly' }));
+  };
+
   const getError = (key: keyof TPlanSchemaType) => {
     if (touched[key] && errors[key]) {
       return errors[key];
     }
     return '';
   };
+
+  console.log(values.plan);
 
   return (
     <Fragment>
@@ -78,6 +86,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
                   id={'arcade_input'}
                   name={'plan'}
                   value={'arcade'}
+                  checked={values.plan === 'arcade' ? true : false}
                   icon={<ArcadeSvg />}
                   title={'Arcade'}
                   desc={'$90/yr'}
@@ -88,6 +97,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
                   id={'advanced_input'}
                   name={'plan'}
                   value={'advanced'}
+                  checked={values.plan === 'advanced' ? true : false}
                   icon={<AdvancedSvg />}
                   title={'Advanced'}
                   desc={'$120/yr'}
@@ -98,6 +108,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
                   id={'pro_input'}
                   name={'plan'}
                   value={'pro'}
+                  checked={values.plan === 'pro' ? true : false}
                   icon={<ProSvg />}
                   title={'Pro'}
                   desc={'$150/yr'}
@@ -111,6 +122,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
                   id={'arcade_input'}
                   name={'plan'}
                   value={'arcade'}
+                  checked={values.plan === 'arcade' ? true : false}
                   icon={<ArcadeSvg />}
                   title={'Arcade'}
                   desc={'$9/mo'}
@@ -120,6 +132,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
                   id={'advanced_input'}
                   name={'plan'}
                   value={'advanced'}
+                  checked={values.plan === 'advanced' ? true : false}
                   icon={<AdvancedSvg />}
                   title={'Advanced'}
                   desc={'$12/mo'}
@@ -129,6 +142,7 @@ const PlanForm = ({ handleNext }: IPlanFormProps) => {
                   id={'pro_input'}
                   name={'plan'}
                   value={'pro'}
+                  checked={values.plan === 'pro' ? true : false}
                   icon={<ProSvg />}
                   title={'Pro'}
                   desc={'$15/mo'}

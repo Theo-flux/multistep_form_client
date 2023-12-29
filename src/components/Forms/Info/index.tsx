@@ -4,6 +4,8 @@ import { useFormStore } from '@/store/useFormStore';
 import { Button, PrimaryInput } from '@/atoms';
 import Head from '@/components/Head';
 import { infoSchema, TInfoSchemaType } from './validation';
+import { cacheData } from '@/helpers/cache';
+import { INFODATA } from '@/constants';
 
 interface IInfoformProps {
   handleNext: (arg: string) => void;
@@ -12,8 +14,11 @@ interface IInfoformProps {
 const InfoForm = ({ handleNext }: IInfoformProps) => {
   const { infoData, setInfoData } = useFormStore();
 
+  console.log(infoData);
+
   const onSubmit = (data: TInfoSchemaType) => {
     setInfoData(data);
+    cacheData(INFODATA, data);
     handleNext('2');
   };
 

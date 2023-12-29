@@ -13,6 +13,7 @@ const Summary = ({ handleNext }: ISummaryProps) => {
   const { planData, infoData, addonsData } = useFormStore();
 
   console.log(infoData, planData, addonsData);
+
   return (
     <Fragment>
       <aside className="mx-auto -mt-12 flex w-full max-w-[450px] flex-col rounded-lg drop-shadow-md md:w-[65%] lg:-mt-0 lg:rounded-none lg:bg-white lg:drop-shadow-none">
@@ -26,7 +27,10 @@ const Summary = ({ handleNext }: ISummaryProps) => {
                   <h4 className="mb-1 text-denim">
                     {formatWord(planData.plan, '')} ({formatWord(planData.billing || '', '')})
                   </h4>
-                  <p className="cursor-pointer text-sm text-grey underline hover:text-purple">
+                  <p
+                    onClick={() => handleNext('2')}
+                    className="cursor-pointer text-sm text-grey underline hover:text-purple"
+                  >
                     Change
                   </p>
                 </div>

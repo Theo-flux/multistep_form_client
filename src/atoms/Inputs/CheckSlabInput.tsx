@@ -9,6 +9,7 @@ interface ICheckSlabInputProps {
   desc: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
   info?: string;
   css?: string;
 }
@@ -20,6 +21,7 @@ const CheckSlabInput = ({
   desc,
   onChange,
   value,
+  checked,
   info,
   css
 }: ICheckSlabInputProps) => {
@@ -30,6 +32,7 @@ const CheckSlabInput = ({
         id={id}
         name={name}
         value={value}
+        checked={checked}
         className="peer hidden"
         onChange={onChange}
       />

@@ -7,6 +7,7 @@ interface IRadioSlabInputProps {
   title: string;
   desc: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
   info?: string;
   icon?: React.ReactNode;
   css?: string;
@@ -19,6 +20,7 @@ const RadioSlabInput = ({
   title,
   desc,
   onChange,
+  checked,
   info,
   icon,
   css
@@ -29,11 +31,20 @@ const RadioSlabInput = ({
         type="radio"
         id={id}
         name={name}
+        checked={checked}
         value={value}
         className="radio-btn-input peer hidden"
         onChange={onChange}
       />
-      <div className="flex h-full w-full cursor-pointer items-start space-x-4 rounded-lg bg-white p-5 ring-1 ring-borderColor transition-all transition-all duration-150 duration-150 ease-in-out hover:bg-veryLightGrey hover:ring-1 hover:ring-purple peer-checked:bg-veryLightGrey peer-checked:ring-1 peer-checked:ring-purple lg:flex-col lg:justify-between lg:space-x-0">
+      <div
+        className={`
+          flex h-full w-full cursor-pointer items-start space-x-4 rounded-lg
+          bg-white p-5 ring-1 ring-borderColor transition-all transition-all
+          duration-150 duration-150 ease-in-out hover:bg-veryLightGrey hover:ring-1 hover:ring-purple
+          peer-checked:bg-veryLightGrey peer-checked:ring-1 peer-checked:ring-purple
+          lg:flex-col lg:justify-between lg:space-x-0
+        `}
+      >
         {icon}
         <div>
           <p className="mb-1 font-bold text-denim">{title}</p>

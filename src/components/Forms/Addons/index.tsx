@@ -4,24 +4,26 @@ import { useFormik } from 'formik';
 import { Button, CheckSlabInput } from '@/atoms';
 import Head from '@/components/Head';
 import { TAddonsSchemaType } from './validation';
+import { cacheData } from '@/helpers/cache';
+import { ADDONSDATA } from '@/constants';
 
 interface IAddonsFormProps {
   handleNext: (arg: string) => void;
 }
 
 const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
-  const { planData, setAddonsData } = useFormStore();
-  const initialValues: TAddonsSchemaType = {
-    addons: []
-  };
+  const { planData, setAddonsData, addonsData } = useFormStore();
+  const initialValues: TAddonsSchemaType = addonsData;
+
+  console.log(initialValues);
 
   const onSubmit = (data: TAddonsSchemaType) => {
     setAddonsData(data);
-
+    cacheData(ADDONSDATA, data);
     handleNext('4');
   };
 
-  const { handleSubmit, handleChange } = useFormik({
+  const { handleSubmit, handleChange, values } = useFormik({
     initialValues,
     validateOnBlur: true,
     validateOnChange: true,
@@ -44,6 +46,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'online_addon'}
                   name={'addons'}
                   value={'online_service'}
+                  checked={values.addons?.includes('online_service') ? true : false}
                   title={'Online service'}
                   desc={'Access to multiplayer games'}
                   info={'+$1/mo'}
@@ -54,6 +57,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'storage_addon'}
                   name={'addons'}
                   value={'larger_storage'}
+                  checked={values.addons?.includes('larger_storage') ? true : false}
                   title={'Larger storage'}
                   desc={'Extra 1TB of cloud save'}
                   info={'+$2/mo'}
@@ -64,6 +68,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'profile_addon'}
                   name={'addons'}
                   value={'customizable_profile'}
+                  checked={values.addons?.includes('customizable_profile') ? true : false}
                   title={'Customizable profile'}
                   desc={'Custom theme on your profile'}
                   info={'+$2/mo'}
@@ -76,6 +81,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'online_addon'}
                   name={'addons'}
                   value={'online_service'}
+                  checked={addonsData.addons?.includes('online_service') ? true : false}
                   title={'Online service'}
                   desc={'Access to multiplayer games'}
                   info={'+$10/yr'}
@@ -86,6 +92,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'storage_addon'}
                   name={'addons'}
                   value={'larger_storage'}
+                  checked={values.addons?.includes('larger_storage') ? true : false}
                   title={'Larger storage'}
                   desc={'Extra 1TB of cloud save'}
                   info={'+$20/yr'}
@@ -96,6 +103,7 @@ const AddonsForm = ({ handleNext }: IAddonsFormProps) => {
                   id={'profile_addon'}
                   name={'addons'}
                   value={'customizable_profile'}
+                  checked={values.addons?.includes('customizable_profile') ? true : false}
                   title={'Customizable profile'}
                   desc={'Custom theme on your profile'}
                   info={'+$20/yr'}

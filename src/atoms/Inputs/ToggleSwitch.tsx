@@ -19,7 +19,14 @@ const ToggleSwitch = ({
     <div className="flex w-fit items-center justify-between space-x-4">
       <p className={`text-sm ${isChecked ? 'text-grey' : 'text-denim'}`}>{leftText}</p>
       <label htmlFor={id} className="block w-fit cursor-pointer">
-        <input type="checkbox" id={id} name={name} className="peer hidden" onChange={onChange} />
+        <input
+          checked={isChecked}
+          type="checkbox"
+          id={id}
+          name={name}
+          className="peer hidden"
+          onChange={onChange}
+        />
         <div className="flex h-[20px] w-[38px] items-center justify-start rounded-full bg-denim px-1 transition-all duration-150 peer-checked:justify-end">
           <div className="h-[13px] w-[13px] rounded-full bg-white"></div>
         </div>

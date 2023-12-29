@@ -1,7 +1,8 @@
+import { create } from 'zustand';
+import { getCachedData } from '@/helpers/cache';
 import { TAddonsSchemaType } from '@/components/Forms/Addons/validation';
 import { TInfoSchemaType } from '@/components/Forms/Info/validation';
 import { TPlanSchemaType } from '@/components/Forms/Plan/validation';
-import { create } from 'zustand';
 
 interface IFormStore {
   infoData: TInfoSchemaType;
@@ -12,20 +13,8 @@ interface IFormStore {
   setAddonsData: (arg: TAddonsSchemaType) => void;
 }
 
-const emptyinfoData: TInfoSchemaType = {
-  name: '',
-  email: '',
-  phone: ''
-};
-
-const emptyPlanData: TPlanSchemaType = {
-  billing: '',
-  plan: '',
-  amount: 0
-};
-
 export const useFormStore = create<IFormStore>((set) => ({
-  infoData: emptyinfoData,
+  infoData: getCachedData('infoData') as TInfoSchemaType,
   setInfoData: (arg: TInfoSchemaType) => {
     set(() => ({
       infoData: {
@@ -36,7 +25,7 @@ export const useFormStore = create<IFormStore>((set) => ({
     }));
   },
 
-  planData: emptyPlanData,
+  planData: getCachedData('planData') as TPlanSchemaType,
   setPlanData: (arg: TPlanSchemaType) => {
     set(() => ({
       planData: {
@@ -47,7 +36,7 @@ export const useFormStore = create<IFormStore>((set) => ({
     }));
   },
 
-  addonsData: { addons: [] },
+  addonsData: getCachedData('addonsData') as TAddonsSchemaType,
   setAddonsData: (arg: TAddonsSchemaType) => {
     set(() => ({
       addonsData: {

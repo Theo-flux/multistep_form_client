@@ -26,7 +26,7 @@ const Summary = ({ handleNext }: ISummaryProps) => {
     onSuccess: (data) => {
       console.log(data);
       setConfirmed(true);
-      // sessionStorage.clear();
+      sessionStorage.clear();
     }
   });
 
